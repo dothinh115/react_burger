@@ -28,10 +28,6 @@ export const totalPrice = (state = totalPriceDefault, action) => {
             state = state + action.payload;
             return state;
         }
-        case "UPDATE_PRICE_FROM_LOCAL": {
-            state = action.payload;
-            return state;
-        }
         default: return state;
     }
 }
