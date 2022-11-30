@@ -1,10 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { burgerState, totalPrice } from "./reducers/burgerReducers";
+import { burgerState } from "./reducers/burgerReducers";
 
 const store = configureStore({
     reducer: {
-        burgerState,
-        totalPrice
+        burgerState
     }
 });
 

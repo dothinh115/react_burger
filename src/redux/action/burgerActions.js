@@ -3,7 +3,7 @@ export const updateMenu = payload => ({
     payload
 });
 
-export const updateTotalPrice = payload => ({
-    type: "UPDATE_TOTAL_PRICE",
+export const loadMenu = payload => ({
+    type: "LOAD_MENU",
     payload
 });

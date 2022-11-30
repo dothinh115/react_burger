@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { updateMenu, updateTotalPrice } from '../redux/action/burgerActions';
+import { updateMenu } from '../redux/action/burgerActions';
 
 export const Menu = (props) => {
-  const {burgerState, totalPrice, dispatch} = props;
+  const {burgerState, dispatch} = props;
   const menu = [
     {
       name: "salad",
@@ -61,7 +61,7 @@ export const Menu = (props) => {
                           const action = updateMenu({[item.name]: burgerState[item.name]-1});
                           dispatch(action);
                           const updatePrice = -priceCounting(1, item.price);
-                          const action_2 = updateTotalPrice(updatePrice);
+                          const action_2 = updateMenu({total: updatePrice});
                           dispatch(action_2);
                         }}>
                           -
@@ -71,7 +71,7 @@ export const Menu = (props) => {
                           const action = updateMenu({[item.name]: burgerState[item.name]+1});
                           dispatch(action);
                           const updatePrice = priceCounting(1, item.price);
-                          const action_2 = updateTotalPrice(updatePrice);
+                          const action_2 = updateMenu({total: updatePrice});
                           dispatch(action_2);
                         }}>
                           +
@@ -85,7 +85,7 @@ export const Menu = (props) => {
                     Tổng cộng:
                   </td>
                   <td colSpan={2}>
-                    <b>{totalPrice}</b>
+                    <b>{burgerState.total}</b>
                   </td>
                 </tr>
               </tbody>
@@ -98,8 +98,7 @@ export const Menu = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  burgerState: state.burgerState,
-  totalPrice: state.totalPrice
+  burgerState: state.burgerState
 });
 
 
