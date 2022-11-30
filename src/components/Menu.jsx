@@ -22,6 +22,7 @@ export const Menu = (props) => {
   const priceCounting = (amount, price) => {
     return amount * price;
   }
+  
   return (
     <>
       <div className="col-6">
@@ -57,21 +58,19 @@ export const Menu = (props) => {
                         {priceCounting(burgerState[item.name], item.price)}
                       </td>
                       <td align="right">
-                        {burgerState[item.name] > 1 && <button className="btn btn-danger mx-2" onClick={e=> {
+                        {burgerState[item.name] > 1 && <button className="btn btn-danger mx-2" onClick={e => {
                           const action = updateMenu({[item.name]: burgerState[item.name]-1});
                           dispatch(action);
-                          const updatePrice = -priceCounting(1, item.price);
-                          const action_2 = updateMenu({total: updatePrice});
+                          const action_2 = updateMenu({total: -item.price});
                           dispatch(action_2);
                         }}>
                           -
                         </button>}
                         <b>{burgerState[item.name]}</b>
-                        <button className="btn btn-success mx-2" onClick={e=> {
-                          const action = updateMenu({[item.name]: burgerState[item.name]+1});
+                        <button className="btn btn-success mx-2" onClick={e => {
+                          const action = updateMenu({[item.name]: burgerState[item.name] +1 });
                           dispatch(action);
-                          const updatePrice = priceCounting(1, item.price);
-                          const action_2 = updateMenu({total: updatePrice});
+                          const action_2 = updateMenu({total: item.price});
                           dispatch(action_2);
                         }}>
                           +
