@@ -1,13 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Outlet } from 'react-router'
-import {useState} from 'react'
 
 export const Burger = (props) => {
   const {burgerState} = props;
-  const [burger, setBurger] = useState({
-    ...burgerState
-  });
 
   const showElement = (type, number) => {
     let html = [];
