@@ -10,18 +10,10 @@ export const burgerState = (state = burgerDefault, action) => {
         case "UPDATE_MENU": {
             let newState = {...state};
             for (let key in action.payload) {
-                if(key === "total") {
                     newState = {
                         ...newState,
-                        [key]: newState[key] + action.payload[key]
+                        [key]: key === "total" ? newState[key] + action.payload[key] : action.payload[key]
                     }
-                }
-                else {
-                    newState = {
-                        ...newState,
-                        [key]: action.payload[key]
-                    }
-                }
             }
             return newState;
         }
