@@ -9,11 +9,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomeTemplate />}>
-          <Route path="" element={<Burger />} >
-            <Route path="" element={<Menu />} />
-          </Route>
-        </Route>
+        <Route path="/" element={<HomeTemplate />} />
       </Routes>
     </BrowserRouter>
   );
