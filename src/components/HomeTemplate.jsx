@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { Outlet } from 'react-router'
 import { loadMenu } from '../redux/action/burgerActions'
+import Burger from './Burger';
+import Menu from './Menu';
 
 export const HomeTemplate = (props) => {
   const {burgerState, dispatch} = props;
@@ -34,7 +35,8 @@ export const HomeTemplate = (props) => {
         Bài tập bánh burger
       </h1>
       <div className="row">
-        <Outlet />
+        <Burger />
+        <Menu />
       </div>
     </div>
   )

@@ -21,7 +21,6 @@ export const Burger = (props) => {
         {showElement("beef", burgerState.beef)}
         <div className="breadBottom"></div>
       </div>
-    <Outlet />
     </>
   )
 }
