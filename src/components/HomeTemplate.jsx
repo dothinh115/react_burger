@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { loadMenu } from '../redux/action/burgerActions'
+import { updateMenu } from '../redux/action/burgerActions'
 import Burger from './Burger';
 import Menu from './Menu';
-import { burgerMenuDefault } from '../redux/menuConfig';
 
 export const HomeTemplate = (props) => {
   const {burgerState, dispatch} = props;
@@ -12,7 +11,7 @@ export const HomeTemplate = (props) => {
     let data = localStorage.getItem("burgerData");
     if(data) {
       data = JSON.parse(data);
-      const action = loadMenu(data);
+      const action = updateMenu(data);
       dispatch(action);
     }
   }

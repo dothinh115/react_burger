@@ -61,7 +61,7 @@ export const Menu = (props) => {
                         </button>}
                         <b>{burgerState[item.name]}</b>
                         <button className="btn btn-success mx-2" onClick={e => {
-                          const action = updateMenu({[item.name]: burgerState[item.name] + 1 });
+                          const action = updateMenu({[item.name]: burgerState[item.name] + 1});
                           dispatch(action);
                         }}>
                           +
