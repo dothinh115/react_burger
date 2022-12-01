@@ -5,8 +5,17 @@ import { burgerMenuDefault } from '../redux/menuConfig';
 
 export const Menu = (props) => {
   const {burgerState, dispatch} = props;
+
   const priceCounting = (amount, price) => {
     return amount * price;
+  }
+
+  const totalPriceCounting = () => {
+    let total = 0;
+    for (let value of burgerMenuDefault) {
+       total += burgerState[value.name] * value.price;
+    }
+    return total;
   }
   
   return (
@@ -47,8 +56,6 @@ export const Menu = (props) => {
                         {burgerState[item.name] > item.numberDefault && <button className="btn btn-danger mx-2" onClick={e => {
                           const action = updateMenu({[item.name]: burgerState[item.name] - 1});
                           dispatch(action);
-                          const action_2 = updateMenu({total: -item.price});
-                          dispatch(action_2);
                         }}>
                           -
                         </button>}
@@ -56,8 +63,6 @@ export const Menu = (props) => {
                         <button className="btn btn-success mx-2" onClick={e => {
                           const action = updateMenu({[item.name]: burgerState[item.name] + 1 });
                           dispatch(action);
-                          const action_2 = updateMenu({total: item.price});
-                          dispatch(action_2);
                         }}>
                           +
                         </button>
@@ -70,7 +75,7 @@ export const Menu = (props) => {
                     Tổng cộng:
                   </td>
                   <td colSpan={2}>
-                    <b>{burgerState.total}</b>
+                    <b>{totalPriceCounting()}</b>
                   </td>
                 </tr>
               </tbody>

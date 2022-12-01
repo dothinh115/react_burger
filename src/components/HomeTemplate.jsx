@@ -11,14 +11,7 @@ export const HomeTemplate = (props) => {
   const getLocalStorage = () => {
     let data = localStorage.getItem("burgerData");
     if(data) {
-      let total = 0;
       data = JSON.parse(data);
-      for (let value of burgerMenuDefault) {
-        total += data[value.name] * value.price;
-      }
-      if(total !== data.total) {
-        data.total = total;
-      }
       const action = loadMenu(data);
       dispatch(action);
     }

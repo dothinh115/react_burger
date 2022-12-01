@@ -1,13 +1,10 @@
 import { burgerMenuDefault } from "../menuConfig";
 const burgerDefault = () => {
-    let burger = {
-      total: 0
-    };
+    let burger = {};
     for (let value of burgerMenuDefault) {
         burger = {
             ...burger,
-            [value.name]: Number(value.numberDefault),
-            total: burger.total += Number(value.numberDefault) * Number(value.price)
+            [value.name]: value.numberDefault
         }
     }
     return burger;

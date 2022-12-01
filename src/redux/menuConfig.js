@@ -2,7 +2,7 @@ export const burgerMenuDefault = [
     {
         name: "salad",
         numberDefault: 1,
-        price: 10
+        price: 15
     },
     {
         name: "cheese",
