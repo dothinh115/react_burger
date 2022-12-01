@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Outlet } from 'react-router'
+import { burgerMenuDefault } from '../redux/menuConfig';
 
 export const Burger = (props) => {
   const {burgerState} = props;
@@ -16,9 +16,9 @@ export const Burger = (props) => {
     <>
       <div className="col-6">
         <div className="breadTop"></div>
-        {showElement("salad", burgerState.salad)}
-        {showElement("cheese", burgerState.cheese)}
-        {showElement("beef", burgerState.beef)}
+        {burgerMenuDefault.map(item => {
+          return showElement(item.name, burgerState[item.name])
+        })}
         <div className="breadBottom"></div>
       </div>
     </>

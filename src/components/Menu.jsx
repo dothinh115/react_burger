@@ -1,24 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { updateMenu } from '../redux/action/burgerActions';
+import { burgerMenuDefault } from '../redux/menuConfig';
 
 export const Menu = (props) => {
   const {burgerState, dispatch} = props;
-  const menu = [
-    {
-      name: "salad",
-      price: 10
-    },
-    {
-      name: "cheese",
-      price: 20
-    },
-    {
-      name: "beef",
-      price: 55
-    }
-  ]; 
-
   const priceCounting = (amount, price) => {
     return amount * price;
   }
@@ -46,7 +32,7 @@ export const Menu = (props) => {
                 </tr>
               </thead>
               <tbody>
-                {menu.map((item, index) => {
+                {burgerMenuDefault.map((item, index) => {
                   return (<tr key={index}>
                       <td>
                         {item.name}
@@ -58,8 +44,8 @@ export const Menu = (props) => {
                         {priceCounting(burgerState[item.name], item.price)}
                       </td>
                       <td align="right">
-                        {burgerState[item.name] > 1 && <button className="btn btn-danger mx-2" onClick={e => {
-                          const action = updateMenu({[item.name]: burgerState[item.name]-1});
+                        {burgerState[item.name] > item.numberDefault && <button className="btn btn-danger mx-2" onClick={e => {
+                          const action = updateMenu({[item.name]: burgerState[item.name] - 1});
                           dispatch(action);
                           const action_2 = updateMenu({total: -item.price});
                           dispatch(action_2);
@@ -68,7 +54,7 @@ export const Menu = (props) => {
                         </button>}
                         <b>{burgerState[item.name]}</b>
                         <button className="btn btn-success mx-2" onClick={e => {
-                          const action = updateMenu({[item.name]: burgerState[item.name] +1 });
+                          const action = updateMenu({[item.name]: burgerState[item.name] + 1 });
                           dispatch(action);
                           const action_2 = updateMenu({total: item.price});
                           dispatch(action_2);

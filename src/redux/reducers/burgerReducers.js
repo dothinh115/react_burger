@@ -1,11 +1,18 @@
-const burgerDefault = ({
-    salad: 1,
-    cheese: 1,
-    beef: 1,
-    total: 85
-});
-
-export const burgerState = (state = burgerDefault, action) => {
+import { burgerMenuDefault } from "../menuConfig";
+const burgerDefault = () => {
+    let burger = {
+      total: 0
+    };
+    for (let value of burgerMenuDefault) {
+        burger = {
+            ...burger,
+            [value.name]: Number(value.numberDefault),
+            total: burger.total += Number(value.numberDefault) * Number(value.price)
+        }
+    }
+    return burger;
+}
+export const burgerState = (state = burgerDefault(), action) => {
      switch (action.type) {
         case "UPDATE_MENU": {
             let newState = {...state};

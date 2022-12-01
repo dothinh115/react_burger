@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { loadMenu } from '../redux/action/burgerActions'
 import Burger from './Burger';
 import Menu from './Menu';
+import { burgerMenuDefault } from '../redux/menuConfig';
 
 export const HomeTemplate = (props) => {
   const {burgerState, dispatch} = props;
@@ -10,7 +11,14 @@ export const HomeTemplate = (props) => {
   const getLocalStorage = () => {
     let data = localStorage.getItem("burgerData");
     if(data) {
+      let total = 0;
       data = JSON.parse(data);
+      for (let value of burgerMenuDefault) {
+        total += data[value.name] * value.price;
+      }
+      if(total !== data.total) {
+        data.total = total;
+      }
       const action = loadMenu(data);
       dispatch(action);
     }
