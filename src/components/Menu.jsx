@@ -1,10 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { updateMenu } from '../redux/action/burgerActions';
-import { burgerMenuDefault } from '../redux/menuConfig';
 
 export const Menu = (props) => {
-  const {burgerState, dispatch} = props;
+  const {burgerState, burgerMenu, dispatch} = props;
 
   const priceCounting = (amount, price) => {
     return amount * price;
@@ -12,7 +11,7 @@ export const Menu = (props) => {
 
   const totalPriceCounting = () => {
     let total = 0;
-    for (let value of burgerMenuDefault) {
+    for (let value of burgerMenu) {
        total += burgerState[value.name] * value.price;
     }
     return total;
@@ -41,7 +40,7 @@ export const Menu = (props) => {
                 </tr>
               </thead>
               <tbody>
-                {burgerMenuDefault.map((item, index) => {
+                {burgerMenu.map((item, index) => {
                   return (<tr key={index}>
                       <td>
                         {item.name}
@@ -88,7 +87,8 @@ export const Menu = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  burgerState: state.burgerState
+  burgerState: state.burgerState,
+  burgerMenu: state.burgerMenu
 });
 
 
