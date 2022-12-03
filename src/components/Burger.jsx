@@ -17,7 +17,8 @@ export const Burger = (props) => {
     return html;
   } 
 
-  const dragStartHandle = name => {
+  const dragStartHandle = (e, name) => {
+    e.target.style.filter = "grayscale(80%)";
     setDragID({
       ...dragID,
       start: name
@@ -36,18 +37,12 @@ export const Burger = (props) => {
   const dropHandle = e => {
     const action = updateDrag(dragID);
     dispatch(action);
-  }
-
-  const dragStopHandle = e => {
+    e.target.style.filter = "unset";
     setDragID({
       start: "",
       end: ""
     });
   }
-
-  useEffect(() => {
-    dropHandle();
-  }, [dragID.end])
 
   return (
     <>
@@ -55,7 +50,7 @@ export const Burger = (props) => {
         <div className="breadTop"></div>
         {burgerMenu.map((item, index) => {
           return (
-            <div key={index} draggable="true" onDragStart={e => dragStartHandle(item.name)} onDragOver={e => dragEndHandle(item.name)} onDrop={dragStopHandle}>
+            <div key={index} draggable="true" onDragStart={e => dragStartHandle(e, item.name)} onDragOver={e => dragEndHandle(item.name)} onDragEnd={dropHandle}>
             {showElement(item.name, burgerState[item.name])}
             </div>
             );
