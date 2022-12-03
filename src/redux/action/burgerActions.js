@@ -7,3 +7,8 @@ export const updateDrag = payload => ({
     type: "UPDATE_DRAG",
     payload
 });
+
+export const loadMenu = payload => ({
+    type: "LOAD_MENU",
+    payload
+});

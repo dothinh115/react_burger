@@ -1,6 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { burgerState } from "./reducers/burgerReducers";
-import { burgerMenu } from "./menuConfig";
+import { burgerState, burgerMenu } from "./reducers/burgerReducers";
 
 const store = configureStore({
     reducer: {

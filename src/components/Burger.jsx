@@ -12,7 +12,7 @@ export const Burger = (props) => {
   const showElement = (type, number) => {
     let html = [];
     for (let i=0; i < number; i++) {
-      html.push(<div className={type}></div>); 
+      html.push(<div key={i} className={type}></div>); 
     }
     return html;
   } 
@@ -25,11 +25,12 @@ export const Burger = (props) => {
   }
 
   const dragEndHandle = name => {
-    if(dragID.end !== name)
-    setDragID({
-      ...dragID,
-      end: name
-    });
+    if(dragID.end !== name) {
+      setDragID({
+        ...dragID,
+        end: name
+      });
+    }
   }
 
   const dropHandle = e => {
