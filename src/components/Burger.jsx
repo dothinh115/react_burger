@@ -38,6 +38,13 @@ export const Burger = (props) => {
     dispatch(action);
   }
 
+  const dragStopHandle = e => {
+    setDragID({
+      start: "",
+      end: ""
+    });
+  }
+
   useEffect(() => {
     dropHandle();
   }, [dragID.end])
@@ -48,7 +55,7 @@ export const Burger = (props) => {
         <div className="breadTop"></div>
         {burgerMenu.map((item, index) => {
           return (
-            <div key={index} draggable="true" onDragStart={e => dragStartHandle(item.name)} onDragOver={e => dragEndHandle(item.name)}>
+            <div key={index} draggable="true" onDragStart={e => dragStartHandle(item.name)} onDragOver={e => dragEndHandle(item.name)} onDrop={dragStopHandle}>
             {showElement(item.name, burgerState[item.name])}
             </div>
             );
