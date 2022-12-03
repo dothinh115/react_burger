@@ -32,7 +32,7 @@ export const HomeTemplate = (props) => {
   return (
     <div className="container">
       <h1>
-        Bài tập bánh burger
+        Bài tập bánh burger (Kéo thả để thay đổi vị trí salad, cheese và beef)
       </h1>
       <div className="row">
         <Burger />
