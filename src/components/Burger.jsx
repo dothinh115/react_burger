@@ -4,10 +4,13 @@ import { updateDrag } from '../redux/action/burgerActions';
 
 export const Burger = (props) => {
   const {burgerState, burgerMenu, dispatch} = props;
-  let [dragID, setDragID] = useState({
+
+  const [dragID, setDragID] = useState({
     start: "",
     end: ""
   });
+
+  // const [dragged, setDragged] = useState();
 
   const showElement = (type, number) => {
     let html = [];
@@ -22,9 +25,11 @@ export const Burger = (props) => {
       ...dragID,
       start: name
     });
+    // setDragged(e.target);
   }
 
-  const dragEndHandle = (e, name) => {
+  const dragOverHandle = (e, name) => {
+    e.preventDefault();
     if(dragID.end !== name) {
       setDragID({
         ...dragID,
@@ -33,14 +38,27 @@ export const Burger = (props) => {
     }
   }
 
-  const dropHandle = e => {
+  const dragEndHandle = e => {
     const action = updateDrag(dragID);
     dispatch(action);
-    setDragID({
-      start: "",
-      end: ""
-    });
   }
+
+  // const dragEnterHandle = (e, index) => {
+  //   const thisNode = e.target.parentNode;
+  //   if(thisNode !== dragged) {
+  //     let compare = thisNode.compareDocumentPosition(dragged);
+  //     switch(compare) {
+  //       case 2: { //thisNode đứng sau dragged
+  //         //chuyển dragged ra đằng sau thisNode
+  //         thisNode.parentNode.insertBefore(dragged, thisNode.nextSibling);
+  //       }
+  //       case 4: {// thisNode đứng trước dragged
+  //         //chuyển dragged ra đằng trước thisNode
+  //         thisNode.parentNode.insertBefore(dragged, thisNode)
+  //       }
+  //     }
+  //   }
+  // }
 
   return (
     <>
@@ -48,7 +66,7 @@ export const Burger = (props) => {
         <div className="breadTop"></div>
         {burgerMenu.map((item, index) => {
           return (
-            <div style={{cursor: "move"}} key={index} draggable="true" onDragStart={e => dragStartHandle(e, item.name)} onDragOver={e => dragEndHandle(e, item.name)} onDragEnd={dropHandle} >
+            <div data-name={item.name} style={{cursor: "move"}} key={index} draggable="true" onDragStart={e => dragStartHandle(e, item.name)} onDragOver={e => dragOverHandle(e, item.name)} onDragEnd={e => dragEndHandle()}>
             {showElement(item.name, burgerState[item.name])}
             </div>
             );
