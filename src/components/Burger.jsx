@@ -38,7 +38,7 @@ export const Burger = (props) => {
     }
   }
 
-  const dragEndHandle = e => {
+  const dropHandle = e => {
     const action = updateDrag(dragID);
     dispatch(action);
   }
@@ -66,7 +66,7 @@ export const Burger = (props) => {
         <div className="breadTop"></div>
         {burgerMenu.map((item, index) => {
           return (
-            <div data-name={item.name} style={{cursor: "move"}} key={index} draggable="true" onDragStart={e => dragStartHandle(e, item.name)} onDragOver={e => dragOverHandle(e, item.name)} onDragEnd={e => dragEndHandle()}>
+            <div data-name={item.name} style={{cursor: "move"}} key={index} draggable="true" onDragStart={e => dragStartHandle(e, item.name)} onDragOver={e => dragOverHandle(e, item.name)} onDrop={e => dropHandle()}>
             {showElement(item.name, burgerState[item.name])}
             </div>
             );
