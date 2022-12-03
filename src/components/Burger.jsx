@@ -44,7 +44,7 @@ export const Burger = (props) => {
         <div className="breadTop"></div>
         {burgerMenu.map((item, index) => {
           return (
-            <div key={index} draggable="true" onDragStart={e => dragStartHandle(item.name)} onDragOver={e => dragEndHandle(item.name)} onDragEnd={dropHandle} className={`${item.name}All my-2`}>
+            <div key={index} draggable="true" onDragStart={e => dragStartHandle(item.name)} onDragOver={e => dragEndHandle(item.name)} onDragEnd={dropHandle}>
             {showElement(item.name, burgerState[item.name])}
             </div>
             );
