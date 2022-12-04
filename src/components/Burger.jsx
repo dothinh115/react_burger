@@ -10,8 +10,6 @@ export const Burger = (props) => {
     end: ""
   });
 
-  // const [dragged, setDragged] = useState();
-
   const showElement = (type, number) => {
     let html = [];
     for (let i=0; i < number; i++) {
@@ -20,45 +18,45 @@ export const Burger = (props) => {
     return html;
   } 
 
-  const dragStartHandle = (e, name) => {
+  const dragStartHandle = e => {
+    const name = e.target.getAttribute("data-name");
     setDragID({
       ...dragID,
       start: name
     });
-    // setDragged(e.target);
   }
 
-  const dragOverHandle = (e, name) => {
+  const dragOverHandle = e => {
     e.preventDefault();
-    if(dragID.end !== name) {
-      setDragID({
-        ...dragID,
-        end: name
-      });
-    }
   }
 
   const dropHandle = e => {
     const action = updateDrag(dragID);
     dispatch(action);
+    if(e.target.classList.contains("draggable") || e.target.parentNode.classList.contains("draggable")){
+      e.target.classList.remove("drag-preview");
+    }
   }
 
-  // const dragEnterHandle = (e, index) => {
-  //   const thisNode = e.target.parentNode;
-  //   if(thisNode !== dragged) {
-  //     let compare = thisNode.compareDocumentPosition(dragged);
-  //     switch(compare) {
-  //       case 2: { //thisNode đứng sau dragged
-  //         //chuyển dragged ra đằng sau thisNode
-  //         thisNode.parentNode.insertBefore(dragged, thisNode.nextSibling);
-  //       }
-  //       case 4: {// thisNode đứng trước dragged
-  //         //chuyển dragged ra đằng trước thisNode
-  //         thisNode.parentNode.insertBefore(dragged, thisNode)
-  //       }
-  //     }
-  //   }
-  // }
+  const dragEnterHandle = e => {
+    const parent = e.target.parentNode;
+    if(parent.classList.contains("draggable")){
+      const name = parent.getAttribute("data-name");
+      if(dragID.start !== name) {
+        parent.classList.add("drag-preview");
+        setDragID({
+          ...dragID,
+          end: name
+        });
+      }
+    }
+  }
+
+  const dragExitHandle = e => {
+    if(e.target.classList.contains("draggable") || e.target.parentNode.classList.contains("draggable")){
+      e.target.classList.remove("drag-preview");
+    }
+  }
 
   return (
     <>
@@ -66,7 +64,7 @@ export const Burger = (props) => {
         <div className="breadTop"></div>
         {burgerMenu.map((item, index) => {
           return (
-            <div data-name={item.name} style={{cursor: "move"}} key={index} draggable="true" onDragStart={e => dragStartHandle(e, item.name)} onDragOver={e => dragOverHandle(e, item.name)} onDrop={e => dropHandle()}>
+            <div className="draggable" data-name={item.name} style={{cursor: "move"}} key={index} draggable="true" onDragStart={e => dragStartHandle(e)} onDragOver={e => dragOverHandle(e)} onDragEnter={e => dragEnterHandle(e)} onDragLeave={e => dragExitHandle(e)} onDrop={e => dropHandle(e)}>
             {showElement(item.name, burgerState[item.name])}
             </div>
             );
