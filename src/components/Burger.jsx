@@ -30,15 +30,21 @@ export const Burger = (props) => {
     e.preventDefault();
   }
 
+  const removeClass = arr => {
+    Object.entries(arr).forEach(([key, value]) => {
+      if(value.classList.contains("dragable")){
+        value.classList.remove("drag-preview");
+      }
+    });
+  }
+
   const dropHandle = e => {
     const parent = e.target.parentNode;
     if(parent.classList.contains("burger") || parent.parentNode.classList.contains("burger")) {
       const children = parent.children;
-      Object.entries(children).forEach(([key, value]) => {
-        if(value.classList.contains("dragable")){
-          value.classList.remove("drag-preview");
-        }
-      });
+      removeClass(children);
+      const secondChildren = parent.parentNode.children;
+      removeClass(secondChildren);
     }
     const action = updateDrag(dragID);
     dispatch(action);
