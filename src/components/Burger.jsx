@@ -31,16 +31,22 @@ export const Burger = (props) => {
   }
 
   const dropHandle = e => {
+    const parent = e.target.parentNode;
+    if(parent.classList.contains("burger") || parent.parentNode.classList.contains("burger")) {
+      const children = parent.children;
+      Object.entries(children).forEach(([key, value]) => {
+        if(value.classList.contains("dragable")){
+          value.classList.remove("drag-preview");
+        }
+      });
+    }
     const action = updateDrag(dragID);
     dispatch(action);
-    if(e.target.classList.contains("draggable") || e.target.parentNode.classList.contains("draggable")){
-      e.target.classList.remove("drag-preview");
-    }
   }
 
   const dragEnterHandle = e => {
     const parent = e.target.parentNode;
-    if(parent.classList.contains("draggable")){
+    if(parent.classList.contains("dragable")){
       const name = parent.getAttribute("data-name");
       if(dragID.start !== name) {
         parent.classList.add("drag-preview");
@@ -53,18 +59,18 @@ export const Burger = (props) => {
   }
 
   const dragExitHandle = e => {
-    if(e.target.classList.contains("draggable") || e.target.parentNode.classList.contains("draggable")){
+    if(e.target.classList.contains("dragable") || e.target.parentNode.classList.contains("draggable")){
       e.target.classList.remove("drag-preview");
     }
   }
 
   return (
     <>
-      <div className="col-6">
+      <div className="col-6 burger">
         <div className="breadTop"></div>
         {burgerMenu.map((item, index) => {
           return (
-            <div className="draggable" data-name={item.name} style={{cursor: "move"}} key={index} draggable="true" onDragStart={e => dragStartHandle(e)} onDragOver={e => dragOverHandle(e)} onDragEnter={e => dragEnterHandle(e)} onDragLeave={e => dragExitHandle(e)} onDrop={e => dropHandle(e)}>
+            <div className="dragable" data-name={item.name} style={{cursor: "move"}} key={index} draggable="true" onDragStart={e => dragStartHandle(e)} onDragOver={e => dragOverHandle(e)} onDragEnter={e => dragEnterHandle(e)} onDragLeave={e => dragExitHandle(e)} onDrop={e => dropHandle(e)}>
             {showElement(item.name, burgerState[item.name])}
             </div>
             );
