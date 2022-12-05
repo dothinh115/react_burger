@@ -81,7 +81,7 @@ export const Burger = (props) => {
         {burgerMenu.map((item, index) => {
           return (
             <div data-drag={item.name} key={index} className={`parent ${item.name === dragID.end && "onDrag"}`} draggable={isDragged ? true : false} onDragOverCapture={e => dragOverHandle(e)} onDragStartCapture={e => dragStartHandle(e)} onDragEnterCapture={e => dragEnterHandle(e)} onDragEnd={e => dragEndHandle(e)}>
-              <FontAwesomeIcon className="children" icon={faSort} onMouseDown={e => setIsDragged(true)}/>
+              <FontAwesomeIcon className="children" style={isDragged && {zIndex: -1}} icon={faSort} onMouseDown={e => setIsDragged(true)}/>
               {showElement(item.name, burgerState[item.name])}
             </div>
             );
