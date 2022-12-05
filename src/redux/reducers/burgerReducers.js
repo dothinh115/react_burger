@@ -48,11 +48,13 @@ export const burgerMenu = (state = burgerMenuDefault, action) => {
         case "UPDATE_DRAG": {
             let nextState = [...state];
             const {start, end} = action.payload;
-            let firstGlass = nextState.findIndex(item => item.name === start);
-            let secondGlass = nextState.findIndex(item => item.name === end);
-            let middle = nextState[firstGlass];
-            nextState[firstGlass] = nextState[secondGlass];
-            nextState[secondGlass] = middle;
+            if(start && end) {
+                let firstGlass = nextState.findIndex(item => item.name === start);
+                let secondGlass = nextState.findIndex(item => item.name === end);
+                let middle = nextState[firstGlass];
+                nextState[firstGlass] = nextState[secondGlass];
+                nextState[secondGlass] = middle;
+            }
             return nextState;
         }
         case "LOAD_MENU": {

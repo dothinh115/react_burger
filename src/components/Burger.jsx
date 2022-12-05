@@ -21,14 +21,14 @@ export const Burger = (props) => {
       return;
     }
     const name = e.target.getAttribute("data-drag");
-    if(name) {
-      setDragID({
-        ...dragID,
-        start: name
-      });
+    if(!name) {
+      name = e.target.parentNode.getAttribute("data-drag");
     }
+    setDragID({
+      ...dragID,
+      start: name
+    });
     e.target.style.opacity = ".5";
-    console.log(e.target);
   }
 
   const dragOverHandle = e => {
@@ -42,13 +42,14 @@ export const Burger = (props) => {
     if(!isDragged) {
       return;
     }
-    const name = e.target.getAttribute("data-drag");
-    if(name) {
-      setDragID({
-        ...dragID,
-        end: name
-      });
+    let name = e.target.getAttribute("data-drag");
+    if(!name) {
+      name = e.target.parentNode.getAttribute("data-drag");
     }
+    setDragID({
+      ...dragID,
+      end: name
+    });
   }
 
   const dragEndHandle = e => {
