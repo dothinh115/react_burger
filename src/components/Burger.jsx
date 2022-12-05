@@ -1,10 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { updateDrag } from '../redux/action/burgerActions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSort  } from '@fortawesome/free-solid-svg-icons'
-
-
 
 export const Burger = (props) => {
   const {burgerState, burgerMenu, dispatch} = props;
@@ -16,14 +14,19 @@ export const Burger = (props) => {
 
   const [isDragged, setIsDragged] = useState(false);
 
+  const getDataDrag = element => {
+    let name = element.getAttribute("data-drag");
+    if(!name) {
+      name = element.parentNode.getAttribute("data-drag");
+    }
+    return name;
+  }
+
   const dragStartHandle = e => {
     if(!isDragged) {
       return;
     }
-    const name = e.target.getAttribute("data-drag");
-    if(!name) {
-      name = e.target.parentNode.getAttribute("data-drag");
-    }
+    const name = getDataDrag(e.target);
     setDragID({
       ...dragID,
       start: name
@@ -42,10 +45,7 @@ export const Burger = (props) => {
     if(!isDragged) {
       return;
     }
-    let name = e.target.getAttribute("data-drag");
-    if(!name) {
-      name = e.target.parentNode.getAttribute("data-drag");
-    }
+    const name = getDataDrag(e.target);
     setDragID({
       ...dragID,
       end: name
@@ -57,14 +57,19 @@ export const Burger = (props) => {
       return;
     }
     e.target.style.opacity = "1";
-    const action = updateDrag(dragID);
-    dispatch(action);
-    setDragID({
-      start: "",
-      end: ""
-    });
     setIsDragged(false);
   }
+
+  useEffect(() => {
+    if(!isDragged) {
+      const action = updateDrag(dragID);
+      dispatch(action);
+      setDragID({
+        start: "",
+        end: ""
+      });
+    }
+  }, [isDragged]);
 
   const showElement = (type, number) => {
     let html = [];
@@ -76,12 +81,12 @@ export const Burger = (props) => {
 
   return (
     <>
-      <div className="col-6 burger">
+      <div className="col-6">
         <div className="breadTop"></div>
         {burgerMenu.map((item, index) => {
           return (
-            <div data-drag={item.name} key={index} className={`parent ${item.name === dragID.end && "onDrag"}`} draggable={isDragged ? true : false} onDragOverCapture={e => dragOverHandle(e)} onDragStartCapture={e => dragStartHandle(e)} onDragEnterCapture={e => dragEnterHandle(e)} onDragEnd={e => dragEndHandle(e)}>
-              <FontAwesomeIcon className="children" style={isDragged && {zIndex: -1}} icon={faSort} onMouseDown={e => setIsDragged(true)}/>
+            <div data-drag={item.name} key={index} className={`parent ${item.name === dragID.end && item.name !== dragID.start && "onDrag"}`} draggable={isDragged ? true : false} onDragOver={e => dragOverHandle(e)} onDragStart={e => dragStartHandle(e)} onDragEnter={e => dragEnterHandle(e)} onDragEnd={e => dragEndHandle(e)}>
+              <FontAwesomeIcon className="children" style={isDragged && {zIndex: -1}} icon={faSort} onMouseDown={e => setIsDragged(true)} onMouseUp={e => setIsDragged(false)}/>
               {showElement(item.name, burgerState[item.name])}
             </div>
             );
