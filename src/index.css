@@ -34,7 +34,7 @@
   background: -o-linear-gradient(#228c1d, #91ce50);
   background: linear-gradient(#228c1d, #91ce50);
   border-radius: 20px;
-  height: 10px;
+  height: 15px;
   }
   .beef{
   width: 50%;
@@ -57,4 +57,27 @@
   background: linear-gradient(#f4d004, #d6bb22);
   border-radius: 20px;
   height: 25px;
+  }
+
+  .parent {
+    position: relative;
+  }
+
+  .children {
+    position: absolute;
+    left: 50px;
+    top: 0;
+    cursor: move;
+  }
+
+  .onDrag::after {
+    position: absolute;
+    content: "";
+    display: block;
+    height: 0;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 20px solid;
+    border-color: transparent #000 transparent transparent;
   }
