@@ -51,9 +51,7 @@ export const burgerMenu = (state = burgerMenuDefault, action) => {
             if(start && end) {
                 const firstGlass = nextState.findIndex(item => item.name === start);
                 const secondGlass = nextState.findIndex(item => item.name === end);
-                const middle = nextState[firstGlass];
-                nextState[firstGlass] = nextState[secondGlass];
-                nextState[secondGlass] = middle;
+                [nextState[firstGlass], nextState[secondGlass]] = [nextState[secondGlass], nextState[firstGlass]];
             }
             return nextState;
         }
