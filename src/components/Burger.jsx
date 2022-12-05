@@ -26,10 +26,10 @@ export const Burger = (props) => {
     if(!isDragged) {
       return;
     }
-    const name = getDataDrag(e.target);
+    const start = getDataDrag(e.target);
     setDragID({
       ...dragID,
-      start: name
+      start
     });
     e.target.style.opacity = ".5";
   }
@@ -45,10 +45,10 @@ export const Burger = (props) => {
     if(!isDragged) {
       return;
     }
-    const name = getDataDrag(e.target);
+    const end = getDataDrag(e.target);
     setDragID({
       ...dragID,
-      end: name
+      end
     });
   }
 

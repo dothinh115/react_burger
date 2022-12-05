@@ -41,7 +41,7 @@ export const HomeTemplate = (props) => {
   return (
     <div className="container">
       <h1>
-        Bài tập bánh burger (Kéo thả để thay đổi vị trí salad, cheese và beef)
+        Bài tập bánh burger
       </h1>
       <div className="row">
         <Burger />
